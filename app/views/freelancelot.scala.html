@@ -1,20 +1,137 @@
-@()
+@(search_list : java.util.LinkedHashMap[String,java.util.List[Project]])
+
 
 @main("FreeLancelot") {
-<style>
-    h1 {text-align: center;}
-    form {text-align: center;}
-    button {
-        padding: 6px 30px;
-        border-radius: 12px;
-        font-size:12pt;
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+            body{
+                padding: 5%;
+                padding-top: 20px;
+            }
+            h1 {text-align: center;}
+            form {text-align: center;
+                margin-left: 5px;
+
+            }
+            button {
+                margin-left: 15px;
+                padding: 6px 30px;
+                border-radius: 12px;
+                font-size:12pt;
+                background-color: #008cff;
+                padding-left: 50px;
+                padding-right: 50px;
+                color: white;
+            }
+            div i{
+                display: inline-block;
+                padding: 5px;
+                color: #008cff;
+            }
+
+            .displayBox{
+
+                margin-top: 30px;
+
+            }
+            .boldFont1{
+                font-size: 25px;
+                font-weight: 500;
+            }
+            .boldFont2{
+                font-size: 20px;
+            }
+            .boldFont3{
+                font-size: 20px;
+                font-weight:300;
+            }
+            .proTitle span{
+                display: inline;
+            }
+            .proTitle p{
+                display: inline;
+
+            }
+            .proList{
+                padding-left: 20px;
+
+
+            }
+            .proList li{
+                padding-bottom: 5px;
+            }
+            .center{
+                padding-left: 500px;
+            }
+            .proList li p{
+                display: inline;
+            }
+            .space{
+                padding-right: 15px;
+            }
+            .containTag{
+                padding: 0;
+                display: inline;
+            }
+            .con2Tag{
+                padding: 0;
+                display: inline-block;
+                border: 1px solid dimgrey;
+                z-index: 5;
+            }
+            .con2Tag input{
+                border: none;
+            }
+    </style>
+
+
+    <h1 style="margin-bottom: 10px;">Welcome to FreeLancelot</h1>
+
+    <div style="margin:auto;">
+        <form method="POST" action="@routes.HomeController.captureSearchKeyword()">
+            <div class="containTag">
+                <div class="con2Tag">
+                    <input type ="text" name = "search" style="height:25px; font-size:14pt;" placeholder="Enter search terms">
+                    <i class="fa fa-search"></i>
+                </div>
+                <button type="submit"  >GO!</button>
+            </div>
+        </form>
+
+    </div>
+    @if(search_list.size()!=0) {
+
+            @for((key, project) <- search_list) {
+                <div class="displayBox">
+                    <div class="proTitle">
+                        <span class="boldFont1">
+                    Search terms: <p>@key</p> :
+                </span>
+                        <span class="boldFont2">
+                    Flesh Reading Ease Index <p>##</p> FKGL <p>#.#</p>
+                </span>
+                        <span style="padding-left: 10px">
+                            <a href="@routes.HomeController.getGlobalStat()" target="_blank">Global Stats</a>
+                        </span>
+                    </div>
+                    <ol class="proList boldFont3">
+                    @for(temp <- project) {
+                        <li class="pros">
+                            <a href="@routes.HomeController.ownerIDSearch(temp.ownerId)" target="_blank">@temp.ownerId</a>
+                            <p>@temp.date</p>, <a href="" target="_blank"><p>@temp.title</p></a>
+                            , type: <p>@temp.projectType</p>, skills:
+                            @for(skill <- temp.jobs) {
+                                <a href="@routes.HomeController.skills(skill.id)" target="_blank" class="space"><p>@skill.name</p></a>
+                            }
+                            <a href="@routes.HomeController.getProjectIDStat(temp.projId)" target="_blank" class="space"><p>Stats</p></a>
+                            <a href="" target="_blank" class="space"><p>Readability</p></a>
+                        </li>
+                    }
+                    </ol>
+
+                </div>
+            }
+
+        }
+
     }
-</style>
-<h1>Welcome to FreeLancelot</h1>
-<form method="get" action="index.scala.html">
-    <input type ="text" name = "search" style="height:25px; font-size:14pt;" placeholder="Enter search terms">
-    <button type="button"  >GO!</button>
-</form>
-
-
-}

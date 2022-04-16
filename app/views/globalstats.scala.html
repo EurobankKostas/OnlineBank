@@ -1,0 +1,66 @@
+@(stats : String)
+
+
+@main("FreeLancelot") {
+
+    <style>
+            body{
+                padding: 5%;
+                padding-top: 20px;
+            }
+            h1 {text-align: center;}
+            h1 p{
+                display: inline-block;
+            }
+
+
+            .displayBox{
+
+                margin-top: 30px;
+
+            }
+            .boldFont1{
+                font-size: 25px;
+                font-weight: 500;
+            }
+            .boldFont2{
+                font-size: 20px;
+            }
+            .boldFont3{
+                font-size: 20px;
+                font-weight:300;
+            }
+            .proTitle span{
+                display: inline;
+            }
+            .proTitle p{
+                display: inline;
+
+            }
+            .proList{
+                padding-left: 20px;
+
+
+            }
+            .proList li{
+                padding-bottom: 5px;
+            }
+
+            .proList li p{
+                display: inline;
+            }
+            .space{
+                padding-right: 15px;
+            }
+
+    </style>
+
+
+    <h1 style="margin-bottom: 10px;">Global Stats for 250 projects search</h1>
+    <ol class="proList boldFont3">
+        <li class="pros">
+            <a href="" target="_blank"></a>
+            <p>@Html.apply(stats)</p>
+        </li>
+    </ol>
+}

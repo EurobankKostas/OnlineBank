@@ -3,8 +3,16 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index()
-GET    /freelancelot                controllers.HomeController.freelancelot()
+GET    /                           controllers.HomeController.index()
+GET    /freelancelot               controllers.HomeController.index()
++ nocsrf
+POST   /freelancelot               controllers.HomeController.captureSearchKeyword(request : Request)
+POST   /                           controllers.HomeController.captureSearchKeyword(request : Request)
+GET     /skills/:skillId           controllers.HomeController.skills(skillId: String)
+GET     /ownerIDSearch/:ownerId             controllers.HomeController.ownerIDSearch(ownerId: String)
+GET     /GlobalStats               controllers.HomeController.getGlobalStat()
+GET     /projectIDStats/:projId            controllers.HomeController.getProjectIDStat(projId: String)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
